@@ -21,14 +21,19 @@ class Visit
 
   def self.all()
     sql = "SELECT * FROM visits"
-    visits = SqlRunner.run(sql)
-    result = visits.map { |visit| Visit.new( visit ) }
-    return result
+    visits = Visit.get_many(sql)
+    return visits
   end
 
   def self.delete_all() 
     sql = "DELETE FROM visits"
     SqlRunner.run(sql)
+  end
+
+  def self.get_many(sql)
+    visits = SqlRunner.run(sql)
+    result = visits.map { |visit| Visit.new( visit ) }
+    return result
   end
 
 end

@@ -18,14 +18,19 @@ class User
 
   def self.all()
     sql = "SELECT * FROM users"
-    users = SqlRunner.run(sql)
-    result = users.map { |user| User.new( user ) }
-    return result
+    users = User.get_many(sql)
+    return users
   end
 
   def self.delete_all() 
     sql = "DELETE FROM users"
     SqlRunner.run(sql)
+  end
+
+  def self.get_many(sql)
+    users = SqlRunner.run(sql)
+    result = users.map { |user| User.new( user ) }
+    return result
   end
 
 end

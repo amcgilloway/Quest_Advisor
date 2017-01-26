@@ -19,14 +19,19 @@ class Location
 
   def self.all()
     sql = "SELECT * FROM locations"
-    locations = SqlRunner.run(sql)
-    result = locations.map { |location| Location.new( location ) }
-    return result
+    locations = Location.get_many(sql)
+    return locations
   end
 
   def self.delete_all() 
     sql = "DELETE FROM locations"
     SqlRunner.run(sql)
+  end
+
+  def self.get_many(sql)
+    locations = SqlRunner.run(sql)
+    result = locations.map {|location| Location.new(location)}
+    return result
   end
 
 end
